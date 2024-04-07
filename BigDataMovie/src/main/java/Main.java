@@ -55,13 +55,14 @@ public class Main {
         }
     }
 
-    public static void insertData(String tableName,String rowKey,String colFamily,String col,String val) throws IOException {
+    public static void insertData(String tableName, String rowKey, String colFamily, String col, String val) throws IOException {
         Table table = connection.getTable(TableName.valueOf(tableName));
-        Put put = new Put(rowKey.getBytes());
-        put.addColumn(colFamily.getBytes(),col.getBytes(), val.getBytes());
+        Put put = new Put(Bytes.toBytes(rowKey));
+        put.addColumn(Bytes.toBytes(colFamily), Bytes.toBytes(col), Bytes.toBytes(val));
         table.put(put);
         table.close();
     }
+
 
     public static void getData(String tableName,String rowKey,String colFamily, String col)throws  IOException{
         Table table = connection.getTable(TableName.valueOf(tableName));
