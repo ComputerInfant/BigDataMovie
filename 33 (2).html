@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Reviews</title>
+    <style>
+        /* CSS样式 */
+        /* 布局样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* 添加背景颜色 */
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+           
+            background-color: #fff; /* 添加背景颜色 */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+        }
+        /* 输入框和按钮样式 */
+        input[type="text"] {
+            padding: 10px;
+            width: 60%;
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #28a745; /* 修改按钮背景颜色 */
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        /* 结果展示样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff; /* 修改表头背景颜色 */
+            color: #fff; /* 修改表头文字颜色 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="color: #dc3545;">电影评论</h2> <!-- 修改标题颜色 -->
+        <form id="searchForm">
+            <input type="text" id="searchInput" placeholder="Enter movie title or keyword">
+            <input type="submit" value="Search">
+        </form>
+        <div id="searchResults"></div>
+        <h3 style="color: #ffc107;">最受欢迎电影</h3> <!-- 修改颜色 -->
+        <div id="popularMovies"></div>
+        <h3 style="color: #17a2b8;">最不受欢迎电影</h3> <!-- 修改颜色 -->
+        <div id="leastPopularMovies"></div>
+        <h3 style="color: #6610f2;">Top 10 Movies</h3> <!-- 修改颜色 -->
+        <table id="topMovies">
+            <thead>
+                <tr>
+                    <th>Movie Title</th>
+                    <th>Rating</th>
+                    <th>Reviews</th>
+                </tr>
+            </thead>
+            <tbody id="topMoviesBody"></tbody>
+        </table>
+    </div>
+    <script>
+        // JavaScript代码
+        // 当页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchForm = document.getElementById('searchForm');
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+            const popularMovies = document.getElementById('popularMovies');
+            const leastPopularMovies = document.getElementById('leastPopularMovies');
+            const topMoviesBody = document.getElementById('topMoviesBody');
+
+            // 模拟搜索结果
+            searchForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // 阻止表单默认提交行为
+                const searchTerm = searchInput.value;
+                // 在这里可以通过Ajax请求后端服务进行电影评论信息的查询
+                // 获取查询结果后更新searchResults
+                searchResults.innerHTML = `<p>Showing results for: <strong>${searchTerm}</strong></p>`;
+            });
+
+            // 模拟最受欢迎和最不受欢迎电影的数据
+            popularMovies.innerHTML = '<p>Popular movies will be displayed here</p>';
+            leastPopularMovies.innerHTML = '<p>Least popular movies will be displayed here</p>';
+
+            // 模拟排行榜前10的数据
+            const topMoviesData = [
+                { title: '战狼1', rating: '12', reviews: '100 000 0' },
+                { title: '战狼2', rating: '12', reviews: '950 000' },
+                { title: '流浪地球1', rating: '11.9', reviews: '900 000' },
+                { title: '流浪地球2', rating: '11.8', reviews: '800 000' },
+                { title: '长津湖', rating: '11.7', reviews: '750 000' },
+                { title: '长津湖之水门桥', rating: '11.6', reviews: '700 000' },
+                
+                // 其他电影数据
+            ];
+
+            // 更新排行榜前10的表格
+            topMoviesData.forEach(movie => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${movie.title}</td>
+                    <td>${movie.rating}</td>
+                    <td>${movie.reviews}</td>
+                `;
+                topMoviesBody.appendChild(row);
+            });
+        });
+    </script>
+</body>
+</html>
