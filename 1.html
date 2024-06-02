@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>电影信息</title>
+    <style>
+        /* 基本样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 40px;
+        }
+        th, td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        .movie-details {
+            margin-top: 40px;
+        }
+        .delete-form {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .top10-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+            font-size: 18px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .top10-link:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<!-- 前十排名链接 -->
+<a th:href="@{/top10}" class="top10-link">查看前十电影排名</a>
+<div class="container">
+    <div class="search-movie">
+        <h1>电影评分查询网站</h1>
+        <form action="/search" method="get">
+            <label for="movieId">电影ID:</label>
+            <input type="text" id="movieId" name="movieId">
+            <label for="title">电影名称:</label>
+            <input type="text" id="title" name="title">
+            <button type="submit">搜索</button>
+        </form>
+    </div>
+
+    <div th:if="${movie != null}" class="movie-details">
+        <h2>电影详情</h2>
+        <p><strong>ID:</strong> <span th:text="${movie.movieId}"></span></p>
+        <p><strong>标题:</strong> <span th:text="${movie.title}"></span></p>
+        <p><strong>类型:</strong> <span th:text="${movie.genres}"></span></p>
+        <p><strong>评分:</strong> <span th:text="${movie.rating}"></span></p>
+    </div>
+    <div th:if="${movie != null}" class="delete-form">
+        <h1>删除电影</h1>
+        <form th:action="@{'/movies/delete/' + ${movie.movieId}}" method="post">
+            <button type="submit">删除</button>
+        </form>
+    </div>
+
+    <div class="add-movie">
+        <h1>添加电影</h1>
+        <form action="/movies/add" method="post">
+            <label for="title">标题:</label>
+            <input type="text" id="title" name="title">
+            <label for="genres">类型:</label>
+            <input type="text" id="genres" name="genres">
+            <button type="submit">添加</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
