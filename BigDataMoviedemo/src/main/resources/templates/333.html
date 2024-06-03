@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>前10电影排名</title>
+    <style>
+        .section {
+            margin: 20px 0;
+        }
+        .box {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div class="box top10-movies section">
+    <h1>前10电影排名</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>排名</th>
+            <th>电影ID</th>
+            <th>评分点击量</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="movie, stat : ${top10Movies}">
+            <td th:text="${stat.index + 1}">1</td>
+            <td th:text="${movie.movieId}">电影ID</td>
+            <td th:text="${movie.ratingCount}">评分点击量</td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/}" class="top10-link">返回首页</a>
+</div>
+</body>
+</html>
